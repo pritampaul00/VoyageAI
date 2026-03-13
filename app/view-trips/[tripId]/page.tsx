@@ -1,0 +1,58 @@
+"use client";
+import { Id } from "@/convex/_generated/dataModel";
+import Header from "@/app/_components/Header";
+import GlobalMap from "@/app/create-new-trip/_components/GlobalMap";
+import Itinerary from "@/app/create-new-trip/_components/Itinerary";
+import { useTripDetail, useUserDetail } from "@/app/provider";
+import { api } from "@/convex/_generated/api";
+import { useConvex } from "convex/react";
+import { useParams } from "next/navigation";
+import React, { useEffect } from "react";
+
+
+function ViewTrip() {
+  const params = useParams();
+  const tripId = Array.isArray(params.tripId)
+    ? params.tripId[0]
+    : params.tripId;
+
+  const { userDetail } = useUserDetail();
+  const { tripDetailInfo, setTripDetailInfo, viewMode } = useTripDetail();
+  const convex = useConvex();
+
+  useEffect(() => {
+  console.log("params:", params);
+  console.log("tripId:", tripId);
+  console.log("userDetail:", userDetail);
+
+  if (typeof tripId === "string" && userDetail?._id) {
+    getTrip(tripId);
+  }
+}, [userDetail, tripId]);
+
+  const getTrip = async (id: string) => {
+  const result = await convex.query(api.tripDetail.GetTripById, {
+    uid: userDetail!._id as Id<"UserTable">,
+    tripid: id,
+  });
+
+  setTripDetailInfo(result?.tripDetail ?? null);
+};
+
+
+  return (
+    <>
+      <Header />
+      <div className="grid grid-cols-5">
+        <div className="col-span-5">
+          {viewMode === "itinerary" ? <Itinerary /> : <GlobalMap />}
+        </div>
+
+        
+      </div>
+      
+    </>
+  );
+}
+
+export default ViewTrip;
