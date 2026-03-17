@@ -1,5 +1,3 @@
-// hooks/useTripProcessing.ts
-
 import { useEffect, useMemo, useState } from "react"
 import { optimizeRoute } from "@/lib/routeOptimizer"
 import { getRoute } from "@/lib/mapboxDirections"
@@ -96,3 +94,4 @@ export function useTripProcessing(
     travelInfo
   }
 }
+

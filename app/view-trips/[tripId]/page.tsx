@@ -21,23 +21,26 @@ function ViewTrip() {
   const convex = useConvex();
 
   useEffect(() => {
-  console.log("params:", params);
-  console.log("tripId:", tripId);
-  console.log("userDetail:", userDetail);
+    console.log("params:", params);
+    console.log("tripId:", tripId);
+    console.log("userDetail:", userDetail);
 
-  if (typeof tripId === "string" && userDetail?._id) {
-    getTrip(tripId);
-  }
-}, [userDetail, tripId]);
+    if (typeof tripId === "string" && userDetail?._id) {
+      getTrip(tripId);
+    }
+  }, [userDetail, tripId]);
 
   const getTrip = async (id: string) => {
-  const result = await convex.query(api.tripDetail.GetTripById, {
-    uid: userDetail!._id as Id<"UserTable">,
-    tripid: id,
-  });
+    const result = await convex.query(api.tripDetail.GetTripById, {
+      tripId: id,
+    });
+    // const result = await convex.query(api.tripDetail.GetTripById, {
+    //   uid: userDetail!._id as Id<"UserTable">,
+    //   tripid: id,
+    // });
 
-  setTripDetailInfo(result?.tripDetail ?? null);
-};
+    setTripDetailInfo(result?.tripDetail ?? null);
+  };
 
 
   return (
@@ -48,9 +51,9 @@ function ViewTrip() {
           {viewMode === "itinerary" ? <Itinerary /> : <GlobalMap />}
         </div>
 
-        
+
       </div>
-      
+
     </>
   );
 }

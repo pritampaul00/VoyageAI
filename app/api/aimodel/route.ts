@@ -139,6 +139,8 @@ Structure.
 }
 `
 
+
+
 const imageCache = new Map<string, string>()
 
 async function fetchPlaceImage(placeName: string) {

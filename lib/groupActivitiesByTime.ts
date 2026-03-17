@@ -1,5 +1,3 @@
-// lib/groupActivitiesByTime.ts
-
 type Activity = {
   start_time?: string
 }
@@ -52,3 +50,4 @@ export function groupActivitiesByTime(activities: Activity[]): ActivityGroup {
 
   return groups
 }
+

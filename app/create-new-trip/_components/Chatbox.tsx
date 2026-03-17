@@ -155,11 +155,35 @@ export default function Chatbox({
       }
 
       if (res.data.ui === "final") {
+        if (messages.some(m => m.ui === "final")) {
+          return
+        }
         const finalRes = await axios.post("/api/aimodel", {
-          messages: history,
+          messages: [
+            {
+              role: "user",
+              content: `
+Create a travel itinerary.
+
+Origin: ${collected.origin}
+Destination: ${collected.destination}
+Group size: ${collected.group_size}
+Budget: ${collected.budget}
+Duration: ${collected.duration}
+
+Generate a structured itinerary following realistic travel planning rules.
+`
+            }
+          ],
           collected,
           isFinal: true,
         });
+
+        // const finalRes = await axios.post("/api/aimodel", {
+        //   messages: history,
+        //   collected,
+        //   isFinal: true,
+        // });
 
         const finalPlan = finalRes.data.trip_plan;
 
@@ -279,7 +303,7 @@ export default function Chatbox({
 
               <div className="w-7 h-7 rounded-full bg-orange-100 flex items-center justify-center">
                 <span className="text-orange-500 text-xs font-bold">
-                  R
+                  V
                 </span>
               </div>
 
@@ -308,7 +332,7 @@ export default function Chatbox({
 
             <div className="w-7 h-7 rounded-full bg-orange-100 flex items-center justify-center">
               <span className="text-orange-500 text-xs font-bold">
-                R
+                V
               </span>
             </div>
 

@@ -1,5 +1,3 @@
-// lib/getPlaceCoordinates.ts
-
 type Coordinates = {
   latitude: number
   longitude: number
@@ -38,3 +36,4 @@ export async function getPlaceCoordinates(placeName: string): Promise<Coordinate
     return null
   }
 }
+
