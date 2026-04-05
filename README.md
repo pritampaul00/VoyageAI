@@ -28,13 +28,20 @@ VoyageAI is a **full-stack AI travel planning platform** that generates personal
 ### Application Architecture  
 
 ```
-User
-↓
-Domain (roamifyai.tech)
-↓
-Hosting Platform
-↓
-Next.js Full Stack App
+User  
+↓  
+Vercel Edge Network (CDN, SSL, Routing)  
+↓  
+Next.js Full Stack Application  
+   • Frontend (React UI)  
+   • Backend (API Routes / Server Actions)  
+↓  
+AI Services  
+   • LLM APIs (itinerary generation)  
+↓  
+External Services  
+   • Maps / Places APIs  
+   • Database (if used)  
 ```
 
 ### External Services  
