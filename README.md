@@ -1,26 +1,16 @@
-# VoyageAI  
-AI-Powered Trip Planning Platform  
+# VoyageAI:  AI-Powered Trip Planning Platform  
+
+VoyageAI is a **full-stack AI travel planning platform** that generates personalized travel itineraries through a conversational chat interface. The project combines **AI-powered itinerary generation, real-time backend infrastructure, interactive mapping, and a modern frontend**, while being deployed using a **production-style DevOps pipeline with Docker and GitHub Actions**.
 
 ---
 
-## Badges  
-![Build](https://img.shields.io/badge/build-passing-brightgreen)  
-![License](https://img.shields.io/badge/license-MIT-blue)  
-![Language](https://img.shields.io/badge/language-TypeScript-blue)  
-![Last Commit](https://img.shields.io/badge/last%20commit-recent-orange)  
+## Live Demo  
 
+- Live App: https://voyage-ai-nine.vercel.app/
+  
 ---
 
-## Overview  
-VoyageAI is a full-stack AI travel planner that generates personalized itineraries through a chat interface.
-
-You enter your travel preferences. The system generates structured multi-day plans with activities, hotels, and map-based visualization.
-
-The platform uses a serverless backend and managed services to deliver fast and scalable performance without complex infrastructure.
-
----
-
-## Features  
+## Core Features  
 
 - Conversational AI chatbot for trip planning  
 - Multi-day itinerary generation with activities  
@@ -33,130 +23,102 @@ The platform uses a serverless backend and managed services to deliver fast and 
 
 ---
 
-## Demo  
+## System Architecture  
 
-- Live App:   
-- Demo Video:   
-- Project Website:   
+### Application Architecture  
 
+```
+User
+↓
+Domain (roamifyai.tech)
+↓
+Hosting Platform
+↓
+Next.js Full Stack App
+```
+
+### External Services  
+
+```
+Next.js App → Arcjet (Rate Limiting)
+Next.js App → Convex (Database + Backend)
+Next.js App → OpenRouter (AI Generation)
+Next.js App → Mapbox / Google Maps (Location Data)
+```
 ---
 
 ## Tech Stack  
 
-Frontend  
-- Next.js  
-- React  
-- TypeScript  
-- Tailwind CSS  
-- ShadCN UI  
-
-Backend  
-- Convex (serverless database and functions)  
-
-AI  
-- OpenRouter (LLM integration)  
-
-Maps  
-- Mapbox GL  
-
-Authentication  
-- Clerk  
-
-Other Services  
-- Arcjet (rate limiting)  
-
-Deployment  
-- Add your hosting platform here  
+| Layer            | Technologies |
+|------------------|-------------|
+| Frontend         | Next.js, React, TypeScript, TailwindCSS, ShadCN UI |
+| Backend          | Convex (Serverless Database + Backend Functions) |
+| AI               | OpenRouter (LLM Integration) |
+| Maps             | Mapbox GL |
+| Authentication   | Clerk |
+| Rate Limiting    | Arcjet |
+| CI/CD            | GitHub Actions |
 
 ---
 
-## Architecture  
+## DevOps Architecture
 
-High-level flow  
+VoyageAI uses a **modern DevOps workflow** focused on automation and fast deployment.
 
-User → Domain → Hosting Platform → Next.js App  
+Tools used:
 
-External integrations  
+- GitHub Actions, CI and CD automation  
+- Hosting platform, application deployment  
+- Docker, optional containerization
+  
+---
 
-- Convex handles backend logic and database  
-- OpenRouter generates AI itineraries  
-- Mapbox provides location data  
-- Arcjet enforces request limits  
-- Clerk manages authentication  
+## CI/CD Pipeline  
 
-Key decisions  
+The deployment pipeline is automated using **GitHub Actions**.
 
-- Serverless backend reduces operational overhead  
-- Managed services handle scaling automatically  
-- Simple architecture improves maintainability  
-- Focus on product features over infrastructure complexity  
+### Pipeline workflow  
+
+1. Developer pushes code to GitHub  
+2. GitHub Actions workflow starts  
+3. Dependencies are installed  
+4. Application build is created  
+5. Linting or basic checks run  
+6. Deployment step executes  
+7. Application updates live
+---
+
+## Environment Variables  
+
+Create `.env.local`
+
+```
+CONVEX_DEPLOYMENT=<convex_deployment_key>
+NEXT_PUBLIC_CONVEX_URL=<convex_deployment_url>
+OPENROUTER_API_KEY=<openrouter_api_key>
+```
+
+Create `.env`
+
+```
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<clerk_publishable_key>
+CLERK_SECRET_KEY=<clerk_secret_key>
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+ARCJET_KEY=<arcjet_api_key>
+GOOGLE_PLACE_API_KEY=<google_places_api_key>
+NEXT_PUBLIC_MAPBOX_API_KEY=<mapbox_api_key>
+``` 
 
 ---
 
-## Setup  
+## Running Locally  
 
-### Prerequisites  
+1. `npm install`  
+2. `npx convex dev`  
+3. `npm run dev`  
 
-- Node.js 18+  
-- npm or yarn  
-- Convex account  
-- Clerk account  
-- Mapbox API key  
-
----
-
-### Environment Variables  
-
-Create `.env.local`  
-
-CONVEX_DEPLOYMENT=your_key  
-NEXT_PUBLIC_CONVEX_URL=your_url  
-GROQ_API_KEY=your_key  
-
-Create `.env`  
-
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_key  
-CLERK_SECRET_KEY=your_key  
-ARCJET_KEY=your_key  
-GOOGLE_PLACE_API_KEY=your_key  
-NEXT_PUBLIC_MAPBOX_API_KEY=your_key  
-
----
-
-## Usage  
-
-Example flow  
-
-1. Sign up or log in  
-2. Enter trip details in chat  
-3. Receive generated itinerary  
-4. View activities on the map  
-5. Save trips for later  
-
----
-
-## How to Run  
-
-npm install  
-npx convex dev  
-npm run dev  
-
-Open http://localhost:3000  
-
----
-
-## Contributing  
-
-1. Fork the repository  
-2. Create a feature branch  
-3. Commit changes  
-4. Open a pull request  
-
----
-
-## License  
-
-MIT License  
+Application runs at: http://localhost:3000 
 
 ---
 
